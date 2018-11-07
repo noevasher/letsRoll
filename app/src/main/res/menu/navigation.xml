@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation_moto"
+        android:icon="@drawable/ic_lr_moto"
+        android:title="@string/moto_menu_title"
+        app:showAsAction="ifRoom">
+    </item>
+
+    <item
+        android:id="@+id/navigation_weather"
+        android:icon="@drawable/ic_lr_wheater"
+        android:title="@string/weather_menu_title"
+        app:showAsAction="ifRoom">
+    </item>
+<!--
+    <item
+        android:id="@+id/navigation_events"
+        android:icon="@drawable/ic_lr_festival"
+        android:title="@string/events_menu_title"
+        app:showAsAction="ifRoom">
+    </item>
+-->
+    <item
+        android:id="@+id/navigation_rutes"
+        android:icon="@drawable/ic_lr_rutes"
+        android:title="@string/rutes_menu_title"
+        app:showAsAction="ifRoom">
+    </item>
+
+
+<!--
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_lr_settings"
+        android:title="@string/settings_menu_title"
+        app:showAsAction="ifRoom">
+    </item>
+-->
+    <item
+        android:id="@+id/navigation_fiends"
+        android:icon="@drawable/ic_lr_friends"
+        android:title="@string/friends_menu_title"
+        app:showAsAction="ifRoom"
+        tools:ignore="PrivateResource">
+    </item>
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_lr_profile_moto"
+        android:title="@string/profile_menu_title"
+        app:showAsAction="ifRoom">
+    </item>
+
+
+
+</menu>

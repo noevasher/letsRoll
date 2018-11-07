@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    <color name="colorPrimary">#85c040</color>
+    <color name="colorPrimaryDark">#5d862c</color>
+    <color name="colorAccent">#f68d03</color>
+-->
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#BF360C</color>
+
+    <color name="colorSelectedItem">#DD2C00</color>
+    <color name="colorSelectedEditText">#FF3D00</color>
+
+    <color name="red">#FF0000</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="background_material_dark">#797878</color>
+
+
+    <color name="button_color">#000000</color>
+    <color name="colorTernaryBackground">#AAA</color>
+    <color name="background_material_light">#000000</color>
+    <color name="primary_text_material_dark">#ff0000</color>
+    <color name="colorBackground">#000000</color>
+
+</resources>

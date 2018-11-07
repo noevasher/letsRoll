@@ -1,0 +1,92 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Let\'s Roll</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+
+    <string name="facebook_app_id">224348001720006</string>
+    <string name="fb_login_protocol_scheme">fb224348001720006</string>
+
+    <!-- Strings Login -->
+    <string name="register_login">Registrar</string>
+    <string name="sign_in_login">Iniciar</string>
+    <string name="facebook_login">Registrar con Facebook</string>
+    <string name="google_login">Registrar con Google</string>
+    <string name="email_login">Correo electrónico</string>
+    <string name="password_login">Contraseña</string>
+
+    <!-- Strings Register -->
+    <string name="facebook_register">Registrar con Facebook</string>
+    <string name="google_register">Registrar con Google</string>
+    <string name="username_register">Nombre de usuario</string>
+    <string name="email_register">Correo electrónico</string>
+    <string name="password_register">Contraseña</string>
+    <string name="password_register_repeat">Confirmar Contraseña</string>
+    <string name="password_repeat_register">Contraseña</string>
+    <string name="gender_register">Género</string>
+    <string name="age_register">Edad</string>
+
+    <!-- spinner gender -->
+    <string-array name="gender_array">
+        <item>Género</item>
+        <item>Masculino</item>
+        <item>femenino</item>
+    </string-array>
+
+    <!-- titles functionalities -->
+    <string name="friends_menu_title" tools:ignore="PrivateResource">Amigos</string>
+    <string name="weather_menu_title">Clima</string>
+    <string name="events_menu_title">Eventos</string>
+    <string name="rutes_menu_title">Rutas</string>
+    <string name="moto_menu_title">Mis Motos</string>
+    <string name="settings_menu_title">Configuración</string>
+    <string name="profile_menu_title">Perfil</string>
+
+    <!-- empty moto -->
+    <string name="moto_empty_msg">Aún no registras alguna moto\nTe recomendamos dar de alta un modelo</string>
+    <string name="moto_add_btn">Agregar</string>
+
+    <!-- empty route -->
+    <string name="route_empty_msg">Aún no registras alguna ruta\n¡Es hora que salgas a rodar!</string>
+    <string name="route_add_btn">Let's roll</string>
+
+    <string name="cache_exception">No Cached Weather Data</string>
+    <string name="pref_temperature_unit">temperature_unit</string>
+    <string name="moto_register_marca_title">marca</string>
+    <string name="moto_register_model_title">modelo</string>
+    <string name="moto_register_year_title">año</string>
+    <string name="moto_register_alias_title">alias</string>
+    <string name="moto_register_kilometraje_title">kilometraje</string>
+
+    <string name="account_invalid_require_field">Este campo es requerido</string>
+    <string name="account_invalid_email">Formato inválido</string>
+    <string name="account_invalid_name">Nombre no puede estar en blanco</string>
+    <string name="account_invalid_password">Se requieren 6 caracteres alfanuméricos</string>
+    <string name="account_invalid_password_match">Las contraseñas son diferentes</string>
+    <string name="account_invalid_user">Su correo ya está registrado en nuestra base de datos, proceda a Iniciar sesión</string>
+    <string name="account_with_facebook">No hay una contraseña registrada, la cuenta ha sido registrada a través de Facebook</string>
+    <string name="account_invalid_email_registered">Su correo ya está registrado en nuestra base de datos, proceda a Iniciar sesión</string>
+    <string name="account_error_facebook">No se puede acceder con tu cuenta de Facebook</string>
+    <string name="start_fail_login">Usuario y password incorrectos</string>
+
+    <string name="register_brand">Selecciona una Marca</string>
+    <string name="register_model">Selecciona un Modelo</string>
+    <string name="feature">Feature</string>
+    <string name="detail">Details</string>
+    <string name="tittle_terms">Terminos y Condiciones</string>
+    <string name="closeDrawer">Cerrar</string>
+    <string name="openDrawer">Abrir</string>
+    <string name="garage">Mis motos</string>
+
+    <string name="register_motocycler">Registrar Motocicleta</string>
+    <string name="invalid_email">el formato es incorrecto</string>
+
+</resources>

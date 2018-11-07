@@ -1,0 +1,60 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/background_material_light</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
+    </style>
+
+
+    <style name="FormTheme">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="colorAccent">@android:color/white</item>
+        <item name="android:textColorHint">@color/colorPrimary</item>
+        <item name="colorControlNormal">@color/black</item>
+        <item name="colorControlActivated">@color/colorSelectedItem</item>
+        <item name="colorControlHighlight">@color/white</item>
+    </style>
+
+    <style name="XLargeIcon">
+        <item name="android:layout_width">@dimen/xxlarge_icon_size</item>
+        <item name="android:layout_height">@dimen/xxlarge_icon_size</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:layout_marginEnd">0dp</item>
+        <item name="android:tint">@color/colorTernaryBackground</item>
+    </style>
+
+    <style name="TextPreresultsEmpty">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginEnd">0dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:layout_marginTop">@dimen/margin_medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/colorTernaryBackground</item>
+    </style>
+
+    <style name="EditTextTheme">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHighlight">@color/red</item>
+    </style>
+
+    <style name="ButtomAddTheme">
+        <item name="android:drawableLeft">@drawable/ic_lr_add_green</item>
+        <item name="android:background">@drawable/round_shape_btn</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:paddingLeft">4dp</item>
+    </style>
+
+</resources>

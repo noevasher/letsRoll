@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/terms"
+          android:title="@string/tittle_terms"
+        android:icon="@drawable/ic_terms_24px">
+    </item>
+
+
+    <item android:id="@+id/settings"
+          android:title="@string/tittle_terms"
+          android:icon="@drawable/ic_lr_settings_">
+    </item>
+
+
+    <item android:id="@+id/account"
+          android:title="@string/tittle_terms"
+          android:icon="@drawable/ic_lr_profile_moto">
+    </item>
+</menu>
