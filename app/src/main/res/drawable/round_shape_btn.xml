@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" android:padding="10dp">
     <solid android:color="@color/colorPrimary"/> <!-- this one is ths color of the Rounded Button -->
-    <size android:width="120dp"/>
+    <size android:width="100dp"/>
     <corners
         android:bottomRightRadius="100dp"
         android:bottomLeftRadius="100dp"
         android:topLeftRadius="100dp"
         android:topRightRadius="100dp"/>
-    <stroke android:width="5px" android:color="@color/colorSelectedEditText" />
+
 </shape>

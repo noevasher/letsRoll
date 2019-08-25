@@ -5,28 +5,29 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 /**
  * Created by holmes on 20/11/17.
  */
 
-public class BaseFragment extends Fragment implements BaseFragmentInterface{
+public class BaseFragment extends Fragment implements BaseFragmentInterface {
     //private final ExtLogger mlog = ExtLogger.getLogger(BaseFragment.class);
     public void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager = (InputMethodManager)  view.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager = (InputMethodManager) view.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
         assert inputMethodManager != null;
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     @Override
-    public void customBackButton(){
+    public void customBackButton() {
 
     }
 
@@ -40,6 +41,7 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface{
 
         return size;
     }
+
     /*
     public void handleFacebookAccessToken(AccessToken token) {
         RegisterAccountBL mAccountBL;
@@ -215,7 +217,7 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface{
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         int osVersion = android.os.Build.VERSION.SDK_INT;
-        if(osVersion < Build.VERSION_CODES.LOLLIPOP) {
+        if (osVersion < Build.VERSION_CODES.LOLLIPOP) {
             super.onSaveInstanceState(outState);
         }
     }
@@ -223,12 +225,12 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface{
 
     private IActivityEnabledListener aeListener;
 
-    protected interface IActivityEnabledListener{
+    protected interface IActivityEnabledListener {
         void onActivityEnabled(FragmentActivity activity);
     }
 
-    protected void getAvailableActivity(IActivityEnabledListener listener){
-        if (getActivity() == null){
+    protected void getAvailableActivity(IActivityEnabledListener listener) {
+        if (getActivity() == null) {
             aeListener = listener;
 
         } else {
@@ -240,7 +242,7 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface{
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        if (aeListener != null){
+        if (aeListener != null) {
             aeListener.onActivityEnabled((FragmentActivity) activity);
             aeListener = null;
         }
@@ -250,7 +252,7 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface{
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (aeListener != null){
+        if (aeListener != null) {
             aeListener.onActivityEnabled((FragmentActivity) context);
             aeListener = null;
         }

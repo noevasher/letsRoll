@@ -3,6 +3,7 @@ package noevasher.letsroll.services;
 /**
  * Created by SHAJIB on 7/4/2017.
  */
+
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -27,29 +28,35 @@ public class WeatherFunction {
 
     private static final String OPEN_WEATHER_MAP_API = "a5de28d276074bfaa887c4a3c49fb2c8";
 
-    public static String setWeatherIcon(int actualId, long sunrise, long sunset){
+    public static String setWeatherIcon(int actualId, long sunrise, long sunset) {
         int id = actualId / 100;
         String icon = "";
-        if(actualId == 800){
+        if (actualId == 800) {
             long currentTime = new Date().getTime();
-            if(currentTime>=sunrise && currentTime<sunset) {
+            if (currentTime >= sunrise && currentTime < sunset) {
                 icon = "&#xf00d;";
             } else {
                 icon = "&#xf02e;";
             }
         } else {
-            switch(id) {
-                case 2 : icon = "&#xf01e;";
+            switch (id) {
+                case 2:
+                    icon = "&#xf01e;";
                     break;
-                case 3 : icon = "&#xf01c;";
+                case 3:
+                    icon = "&#xf01c;";
                     break;
-                case 7 : icon = "&#xf014;";
+                case 7:
+                    icon = "&#xf014;";
                     break;
-                case 8 : icon = "&#xf013;";
+                case 8:
+                    icon = "&#xf013;";
                     break;
-                case 6 : icon = "&#xf01b;";
+                case 6:
+                    icon = "&#xf01b;";
                     break;
-                case 5 : icon = "&#xf019;";
+                case 5:
+                    icon = "&#xf019;";
                     break;
             }
         }
@@ -57,15 +64,11 @@ public class WeatherFunction {
     }
 
 
-
     public interface AsyncResponse {
 
         void processFinish(String output1, String output2, String output3, String output4, String output5,
                            String output6, String output7, String output8);
     }
-
-
-
 
 
     public static class placeIdTask extends AsyncTask<String, Void, JSONObject> {
@@ -93,19 +96,19 @@ public class WeatherFunction {
         @Override
         protected void onPostExecute(JSONObject json) {
             try {
-                if(json != null){
+                if (json != null) {
                     JSONObject details = json.getJSONArray("weather").getJSONObject(0);
                     JSONObject main = json.getJSONObject("main");
-    
+
                     System.out.println("json: " + json);
                     System.out.println("details: " + details);
                     System.out.println("main : " + main);
-                    
+
                     DateFormat df = DateFormat.getDateTimeInstance();
 
                     Locale locale = new Locale("es", "ES");
                     String city = json.getString("name").toUpperCase(locale) + ", " + json.getJSONObject("sys").getString("country");
-                    
+
                     String description = details.getString("description").toUpperCase(locale);
                     String temperature = String.format("%.1f", main.getDouble("temp")) + "°";
                     String humidity = main.getString("humidity") + "%";
@@ -115,7 +118,7 @@ public class WeatherFunction {
                             json.getJSONObject("sys").getLong("sunrise") * 1000,
                             json.getJSONObject("sys").getLong("sunset") * 1000);
 
-                    delegate.processFinish(city, description, temperature, humidity, pressure, updatedOn, iconText, ""+ (json.getJSONObject("sys").getLong("sunrise") * 1000));
+                    delegate.processFinish(city, description, temperature, humidity, pressure, updatedOn, iconText, "" + (json.getJSONObject("sys").getLong("sunrise") * 1000));
 
                 }
             } catch (JSONException e) {
@@ -123,20 +126,15 @@ public class WeatherFunction {
             }
 
 
-
         }
     }
 
 
-
-
-
-
-    public static JSONObject getWeatherJSON(String lat, String lon){
+    public static JSONObject getWeatherJSON(String lat, String lon) {
         try {
             URL url = new URL(String.format(OPEN_WEATHER_MAP_URL, lat, lon));
             HttpURLConnection connection =
-                    (HttpURLConnection)url.openConnection();
+                    (HttpURLConnection) url.openConnection();
 
             connection.addRequestProperty("x-api-key", OPEN_WEATHER_MAP_API);
 
@@ -144,8 +142,8 @@ public class WeatherFunction {
                     new InputStreamReader(connection.getInputStream()));
 
             StringBuffer json = new StringBuffer(1024);
-            String tmp="";
-            while((tmp=reader.readLine())!=null)
+            String tmp = "";
+            while ((tmp = reader.readLine()) != null)
                 json.append(tmp).append("\n");
             reader.close();
 
@@ -153,12 +151,12 @@ public class WeatherFunction {
 
             // This value will be 404 if the request was not
             // successful
-            if(data.getInt("cod") != 200){
+            if (data.getInt("cod") != 200) {
                 return null;
             }
 
             return data;
-        }catch(Exception e){
+        } catch (Exception e) {
             return null;
         }
     }

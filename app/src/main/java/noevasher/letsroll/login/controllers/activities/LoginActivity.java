@@ -1,54 +1,24 @@
 package noevasher.letsroll.login.controllers.activities;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import noevasher.letsroll.R;
 import noevasher.letsroll.login.businesslogic.LoginBL;
-import noevasher.letsroll.main.controllers.activities.MainActivity;
 import noevasher.letsroll.main.controllers.activities.MainActivity_;
 import noevasher.letsroll.proxies.AuthProxy;
 import noevasher.letsroll.register.controllers.activities.RegisterActivity;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
@@ -64,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
-    private static final String[] DUMMY_CREDENTIALS = new String[] {
+    private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
     /**
@@ -73,12 +43,12 @@ public class LoginActivity extends AppCompatActivity {
 
     @BindView(R.id.startSessionButon)
     public Button startSessionButton;
-    
+
     @BindView(R.id.registerButton)
     public Button registerSessionButton;
-    
+
     @OnClick(R.id.registerButton)
-    public void registerBtn(){
+    public void registerBtn() {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
@@ -90,15 +60,16 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
     //*/
-    
+
     @BindView(R.id.editText_email_login)
     public EditText emailE;
-    
+
     @BindView(R.id.editText_password_login)
     public EditText passwordE;
-    
+
     private AuthProxy mAuthProxy;
     private LoginBL loginBL;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,13 +79,13 @@ public class LoginActivity extends AppCompatActivity {
         //Intent mainIntent = new Intent(this, MainActivity.class);
         Intent mainIntent = new Intent(this, MainActivity_.class);
         loginBL = new LoginBL(getApplicationContext());
-        
+
         mAuthProxy = AuthProxy.getInstance(getApplicationContext());
         mAuthProxy.getFirebaseUser().subscribe(user -> {
-            if(!user.equals("null")) {// user not registered
+            if (!user.equals("null")) {// user not registered
                 startActivity(mainIntent);
                 finish();
-            }else{
+            } else {
                 Toast.makeText(this, "user registrado", Toast.LENGTH_LONG);
             }
             /*
@@ -126,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent[1]);
                     finish();
                     //*/
-                //}else{
+            //}else{
                     /*
                     singleInit[0].subscribe(response -> {
                         mlog.info("response singIn: " + response);
@@ -151,32 +122,32 @@ public class LoginActivity extends AppCompatActivity {
             //*/
         });
         //FirebaseApp.initializeApp(getApplicationContext());
-    
+
         // Set up the login form.
-    
-        startSessionButton.setOnClickListener(l ->{
+
+        startSessionButton.setOnClickListener(l -> {
             String email = emailE.getText().toString();
             String password = passwordE.getText().toString();
-            
-            loginBL.startSessionUser(email, password).subscribe(response ->{
-                if(response instanceof FirebaseUser){
+
+            loginBL.startSessionUser(email, password).subscribe(response -> {
+                if (response instanceof FirebaseUser) {
                     startActivity(mainIntent);
                     finish();
-        
-                } else if(response.equals("false")) {
+
+                } else if (response.equals("false")) {
                     //dialogFragment.dismiss();
                     Toast.makeText(this, getString(R.string.start_fail_login), Toast.LENGTH_SHORT)
-                         .show();
-        
+                            .show();
+
                 } else {
                     //dialogFragment.dismiss();
                     Toast.makeText(this, getString(R.string.account_with_facebook), Toast.LENGTH_SHORT).show();
                 }
             });
         });
-        
+
     }
 
-    
+
 }
 

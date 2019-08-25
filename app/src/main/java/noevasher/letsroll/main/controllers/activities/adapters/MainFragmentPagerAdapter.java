@@ -1,8 +1,8 @@
 package noevasher.letsroll.main.controllers.activities.adapters;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
         notifyDataSetChanged();
     }
 
-    public void replaceFragment(Fragment fragment, String title, int position){
+    public void replaceFragment(Fragment fragment, String title, int position) {
         mFragmentList.remove(position);
         mFragmentTitleList.remove(position);
         mFragmentList.add(position, fragment);
@@ -39,10 +39,10 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
         notifyDataSetChanged();
     }
 
-    public void popBackStack(int position){
-        if (mFragmentList.get(position)!=null){
-            if (mFragmentList.get(position).getView()!=null){
-                if(mFragmentList.get(position).getChildFragmentManager().getBackStackEntryCount()>0)
+    public void popBackStack(int position) {
+        if (mFragmentList.get(position) != null) {
+            if (mFragmentList.get(position).getView() != null) {
+                if (mFragmentList.get(position).getChildFragmentManager().getBackStackEntryCount() > 0)
                     mFragmentList.get(position).getChildFragmentManager().popBackStack();
             }
         }

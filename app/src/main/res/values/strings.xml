@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Let\'s Roll</string>
+    <string name="app_name">Lets Roll</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -56,7 +56,7 @@
 
     <!-- empty route -->
     <string name="route_empty_msg">Aún no registras alguna ruta\n¡Es hora que salgas a rodar!</string>
-    <string name="route_add_btn">Let's roll</string>
+    <string name="route_add_btn">Lets roll</string>
 
     <string name="cache_exception">No Cached Weather Data</string>
     <string name="pref_temperature_unit">temperature_unit</string>

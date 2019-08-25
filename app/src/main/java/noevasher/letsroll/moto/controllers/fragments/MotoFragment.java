@@ -1,44 +1,28 @@
 package noevasher.letsroll.moto.controllers.fragments;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import androidx.annotation.NonNull;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import noevasher.letsroll.R;
 import noevasher.letsroll.commons.parents.fragments.BaseFragment;
-import noevasher.letsroll.main.controllers.activities.MainActivity;
 import noevasher.letsroll.moto.controllers.activities.RegisterMotoActivity;
 
 public class MotoFragment extends BaseFragment {
     //private final ExtLogger mlog = ExtLogger.getLogger(MotoFragment.class);
     private static final String ERROR_ADD_IMAGE = "login_ads_image_error";
- 
+
     @BindView(R.id.view_flipper_moto)
     public ViewFlipper mFlipperMoto;
-    
+
     @BindView(R.id.button_add_moto)
     public Button addBtn;
 
@@ -57,17 +41,17 @@ public class MotoFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_moto, container, false); //setContentView(R.layout.fragment_login);
         ButterKnife.bind(this, view);
-    
+
         listenerAdd();
         getAvailableActivity(activity -> {
         });
 
-        
+
         return view;
     }
 
-    private void listenerAdd(){
-        addBtn.setOnClickListener(l ->{
+    private void listenerAdd() {
+        addBtn.setOnClickListener(l -> {
             Intent intent = new Intent(getActivity(), RegisterMotoActivity.class);
             startActivity(intent);
         });
