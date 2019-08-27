@@ -30,6 +30,8 @@
         </activity>
         <activity android:name=".main.controllers.activities.MainActivity_">
         </activity>
+        <activity android:name=".main.controllers.activities.MainActivity">
+        </activity>
         <activity android:name=".register.controllers.activities.RegisterActivity">
         </activity>
         <activity android:name=".moto.controllers.activities.RegisterMotoActivity">

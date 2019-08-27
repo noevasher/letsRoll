@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="register_error">Error al registrar usuario</string>
+    <string name="duplicated_user_error">El Correo ya ha sido registrado</string>
+</resources>

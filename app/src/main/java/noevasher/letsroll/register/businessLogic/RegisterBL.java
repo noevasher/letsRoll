@@ -13,8 +13,8 @@ public class RegisterBL {
         mAuthProxy = AuthProxy.getInstance(context);
     }
 
-    public Single<Object> createAccount(String name, String email, String gender, int age, String password) {
-        return mAuthProxy.createAccount(name, email, gender, age, password);
+    public Single<Object> createAccount(String name, String email, int age, String password) {
+        return mAuthProxy.createAccount(name, email, age, password);
     }
 
     public Single<Object> startSessionUser(String email, String password) {

@@ -9,11 +9,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,10 +24,11 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import noevasher.letsroll.R;
-import noevasher.letsroll.main.controllers.activities.MainActivity;
+import noevasher.letsroll.main.controllers.activities.MainActivity_;
+import noevasher.letsroll.main.controllers.activities.ParentActivity;
 import noevasher.letsroll.register.businessLogic.RegisterBL;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends ParentActivity {
 
     @BindView(R.id.editText_email_register)
     public EditText email;
@@ -40,25 +42,26 @@ public class RegisterActivity extends AppCompatActivity {
     @BindView(R.id.editText_password_register_repeat)
     public EditText passwordRepeat;
 
-    @BindView(R.id.spinner_gender)
-    public Spinner gender;
-
     @BindView(R.id.spinner_age)
     public Spinner age;
 
     @BindView(R.id.button_register)
     public Button registerBtn;
 
-    private String genderData;
     private int ageData = 0;
     private RegisterBL registerBL;
+
+    @BindView(R.id.toolbar)
+    public Toolbar toolbar;
+
+    @BindView(R.id.progressBar)
+    public ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
-        setItemsGenderSpinner();
         setItemsAgeSpinner();
         FirebaseApp.initializeApp(this);
 
@@ -68,74 +71,48 @@ public class RegisterActivity extends AppCompatActivity {
             String emailE = email.getText().toString();
             String passwordE = password.getText().toString();
             //String genderE = gender.get.getText().toString();
+            progressBar.setVisibility(View.VISIBLE);
 
-            registerBL.createAccount(usernameE, emailE, genderData, ageData, passwordE).subscribe(response -> {
-                System.out.println("usuario guardado");
-                if (response instanceof FirebaseUser) {
-                    registerBL.startSessionUser(emailE, passwordE).subscribe(init -> {
-                        Intent returnIntent = new Intent(getApplication(), MainActivity.class);
-                        startActivity(returnIntent);
-                        //returnIntent.putExtra("result", "close");
-                        //setResult(Activity.RESULT_OK, returnIntent);
-                        //dialogFragment.dismiss();
-                        finish();
-                    });
-                }
-            });
-        });
-    }
-
-    private void setItemsGenderSpinner() {
-        // Get reference of widgets from XML layout
-        final Spinner spinner = (Spinner) findViewById(R.id.spinner_gender);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter
-                .createFromResource(this, R.array.gender_array, R.layout.spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItemText = (String) parent.getItemAtPosition(position);
-                // If user change the default selection
-                // First item is disable and it is used for hint
-                if (position > 0) {
-                    // Notify the selected item text
-                    Toast.makeText(getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                            .show();
-                    switch (position) {
-                        case 1:
-                            genderData = "masculino";
-                        case 2:
-                            genderData = "femenino";
+            if(ifValidForm()) {
+                registerBL.createAccount(usernameE, emailE, ageData, passwordE).subscribe(response -> {
+                    System.out.println("usuario guardado");
+                    if (response instanceof FirebaseUser) {
+                        registerBL.startSessionUser(emailE, passwordE).subscribe(init -> {
+                            progressBar.setVisibility(View.GONE);
+                            Intent returnIntent = new Intent(getApplication(), MainActivity_.class);
+                            startActivity(returnIntent);
+                            finish();
+                        });
+                    }
+                    else if(response.equals("duplicated")){
+                        Toast.makeText(RegisterActivity.this, getString(R.string.duplicated_user_error), Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
 
                     }
-                }
+                },t->{
+                    Toast.makeText(RegisterActivity.this, getString(R.string.register_error), Toast.LENGTH_LONG).show();
+                });
+            }else{
+                progressBar.setVisibility(View.GONE);
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
         });
+
+        setToolbar(toolbar, "Registrar Usuario", true);
+        validEmptyFields();
     }
 
     private void setItemsAgeSpinner() {
-        // Get reference of widgets from XML layout
-        final Spinner spinner = (Spinner) findViewById(R.id.spinner_age);
-        ArrayList<String> plantsList = new ArrayList<>();
-        plantsList.add("Edad: ");
+        ArrayList<String> ageList = new ArrayList<>();
+        ageList.add("Edad: ");
         for (int i = 15; i < 100; i++) {
-            plantsList.add(i + "");
+            ageList.add(i + "  años");
         }
 
         //final List<String> plantsList = new ArrayList<>(Arrays.asList(plants));
 
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this, R.layout.spinner_item, plantsList) {
+                this, R.layout.spinner_item, ageList) {
             @Override
             public boolean isEnabled(int position) {
                 if (position == 0) {
@@ -162,9 +139,9 @@ public class RegisterActivity extends AppCompatActivity {
             }
         };
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
-        spinner.setAdapter(spinnerArrayAdapter);
+        age.setAdapter(spinnerArrayAdapter);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        age.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItemText = (String) parent.getItemAtPosition(position);
@@ -184,4 +161,64 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    private boolean ifValidForm() {
+        displayEmptyField(userName);
+        displayEmptyField(email);
+        displayEmptyField(password);
+        displayEmptyField(passwordRepeat);
+        displayEmptyField(age);
+
+        validEmptyFields();
+        comparePassword(password, passwordRepeat);
+
+        return !isEmptyField(userName) && !isEmptyField(email) && !isEmptyField(password)
+                && !isEmptyField(passwordRepeat) && isValidSpinner(age)
+                && comparePassword(password, passwordRepeat);
+
+    }
+
+    private boolean isValidSpinner(Spinner spinner){
+        return spinner.getSelectedItemPosition() != 0;
+    }
+
+    private void validEmptyFields(){
+        userName.setOnFocusChangeListener((view, focus) -> {
+            if(!focus){
+                displayEmptyField(userName);
+
+            }
+        });
+        email.setOnFocusChangeListener((view, focus) -> {
+            if(!focus){
+                displayEmptyField(email);
+                if(!isValidEmail(email.getText().toString())){
+                    email.setError(getString(R.string.invalid_format));
+                }
+            }
+        });
+
+        password.setOnFocusChangeListener((view, focus) -> {
+            if(!focus){
+                displayEmptyField(password);
+                if(!isValidLength(password.getText().toString())){
+                    password.setError("Contraseña debe de tener 6 o más caracteres");
+                }
+            }
+        });
+        passwordRepeat.setOnFocusChangeListener((view, focus) -> {
+            if(!focus){
+                displayEmptyField(passwordRepeat);
+
+                if(!isValidLength(passwordRepeat.getText().toString())){
+                    passwordRepeat.setError("Contraseña debe de tener 6 o más caracteres");
+                }else {
+                    comparePassword(password, passwordRepeat);
+                }
+            }
+        });
+
+    }
+
+
 }

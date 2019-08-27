@@ -1,5 +1,6 @@
 package noevasher.letsroll.main.controllers.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -22,13 +23,14 @@ import butterknife.ButterKnife;
 import noevasher.letsroll.R;
 import noevasher.letsroll.commons.parents.activities.BaseActivity;
 import noevasher.letsroll.friends.controllers.fragments.FriendsFragment;
+import noevasher.letsroll.login.controllers.activities.LoginActivity;
 import noevasher.letsroll.main.controllers.activities.adapters.TabAdapter;
 import noevasher.letsroll.moto.controllers.fragments.MotoFragment;
 import noevasher.letsroll.profile.controllers.fragments.ProfileFragment;
 import noevasher.letsroll.rute.controllers.fragments.RouteFragment;
 import noevasher.letsroll.weather.controllers.WeatherFragment;
 
-public class MainActivity_ extends BaseActivity {
+public class MainActivity_ extends ParentActivity {
     private TabAdapter adapter;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -55,12 +57,12 @@ public class MainActivity_ extends BaseActivity {
 
         adapter = new TabAdapter(getSupportFragmentManager());
         setFragments();
-        //viewPager.setAdapter(adapter);
+        viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         setupFragmentsNavigation();
 
         highLightCurrentTab(tabLayout.getTabAt(0));
-        tabLayout.setOnTabSelectedListener(
+        tabLayout.addOnTabSelectedListener(
                 new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
 
                     @Override
@@ -132,6 +134,13 @@ public class MainActivity_ extends BaseActivity {
                         return true;
                     case R.id.account:
                         Log.d("menu nav", "account");
+                        return true;
+                    case R.id.logout:
+                        Log.d("menu nav", "logout");
+                        mAuthProxy.logout();
+                        Intent intent = new Intent(MainActivity_.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
                         return true;
                     default:
                         return false;

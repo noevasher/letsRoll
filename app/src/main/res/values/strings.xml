@@ -88,5 +88,10 @@
 
     <string name="register_motocycler">Registrar Motocicleta</string>
     <string name="invalid_email">el formato es incorrecto</string>
+    <string name="logout">Cerrar</string>
+    <string name="invalid_format">Formato no valido</string>
+    <string name="field_required">Campo Requerido</string>
+    <string name="register_error">Error al registrar usuario</string>
+    <string name="duplicated_user_error">El Correo ya ha sido registrado</string>
 
 </resources>

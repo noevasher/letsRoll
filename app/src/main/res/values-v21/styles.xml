@@ -16,7 +16,6 @@
 
     <style name="EditTextTheme">
         <item name="android:backgroundTint">@color/white</item>
-        <item name="android:textColorHint">@color/white</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textColorHighlight">@color/red</item>
     </style>

@@ -4,85 +4,102 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:windowSoftInputMode="stateHidden"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:background="@drawable/background_login">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/startSessionButon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/round_shape_btn"
-            android:text="@string/sign_in_login"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@+id/editText_password_login"
-            app:layout_constraintTop_toBottomOf="@+id/editText_password_login" />
-
-        <Button
-            android:id="@+id/registerButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/round_shape_btn"
-            android:text="@string/register_login"
-            android:textColor="@color/colorPrimary"
-            android:backgroundTint="@color/white"
-            app:layout_constraintEnd_toStartOf="@+id/startSessionButon"
-            app:layout_constraintStart_toStartOf="@+id/editText_password_login"
-            app:layout_constraintTop_toBottomOf="@+id/editText_password_login" />
-
-        <EditText
-            android:id="@+id/editText_email_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:hint="@string/email_login"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/editText_password_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:hint="@string/password_login"
-            android:inputType="textPassword"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            app:layout_constraintEnd_toEndOf="@+id/editText_email_login"
-            app:layout_constraintStart_toStartOf="@+id/editText_email_login"
-            app:layout_constraintTop_toBottomOf="@+id/editText_email_login" />
+            <Button
+                android:id="@+id/startSessionButon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/round_shape_btn"
+                android:text="@string/sign_in_login"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@+id/editText_password_login"
+                app:layout_constraintTop_toBottomOf="@+id/editText_password_login" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginEnd="8dp"
-            android:tint="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_lr_moto" />
+            <Button
+                android:id="@+id/registerButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/round_shape_btn"
+                android:text="@string/register_login"
+                android:textColor="@color/colorPrimary"
+                android:backgroundTint="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/startSessionButon"
+                app:layout_constraintStart_toStartOf="@+id/editText_password_login"
+                app:layout_constraintTop_toBottomOf="@+id/editText_password_login" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <EditText
+                android:id="@+id/editText_email_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:hint="@string/email_login"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+
+            <EditText
+                android:id="@+id/editText_password_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:hint="@string/password_login"
+                android:inputType="textPassword"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@+id/editText_email_login"
+                app:layout_constraintStart_toStartOf="@+id/editText_email_login"
+                app:layout_constraintTop_toBottomOf="@+id/editText_email_login" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="8dp"
+                android:tint="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_lr_moto" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

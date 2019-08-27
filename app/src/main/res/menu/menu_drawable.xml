@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/terms"
-          android:title="@string/tittle_terms"
-        android:icon="@drawable/ic_terms_24px">
-    </item>
 
 
-    <item android:id="@+id/settings"
-          android:title="@string/tittle_terms"
-          android:icon="@drawable/ic_lr_settings_">
-    </item>
+    <group android:id="@+id/activities" android:checkableBehavior="single">
+        <item android:id="@+id/terms"
+            android:title="@string/tittle_terms"
+            android:icon="@drawable/ic_terms_24px">
+        </item>
 
 
-    <item android:id="@+id/account"
-          android:title="@string/tittle_terms"
-          android:icon="@drawable/ic_lr_profile_moto">
-    </item>
+        <item android:id="@+id/settings"
+            android:title="@string/tittle_terms"
+            android:icon="@drawable/ic_lr_settings_">
+        </item>
+
+
+        <item android:id="@+id/account"
+            android:title="@string/tittle_terms"
+            android:icon="@drawable/ic_lr_profile_moto">
+        </item>
+    </group>
+
+
+    <group android:id="@+id/userItems" android:checkableBehavior="single">
+        <item android:id="@+id/logout"
+            android:title="@string/logout"
+            android:icon="@drawable/ic_close_app_24px">
+        </item>
+
+    </group>
 </menu>

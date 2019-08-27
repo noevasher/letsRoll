@@ -14,7 +14,7 @@
     <color name="colorDarkPrimaryDark">#000000</color>
     <color name="colorDarkAccent">#BF360C</color>
 
-    <color name="colorSelectedItem">#DD2C00</color>
+    <color name="colorSelectedItem">#FFEB3B</color>
     <color name="colorSelectedEditText">#FF3D00</color>
 
     <color name="red">#FF0000</color>

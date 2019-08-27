@@ -6,107 +6,122 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_login"
+    android:windowSoftInputMode="stateHidden"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+
     tools:context=".register.controllers.activities.RegisterActivity">
 
-    <include
-        layout="@layout/toolbar"
-        android:id="@+id/toolbar"/>
 
-    <EditText
-        android:id="@+id/editText_email_register"
-        style="@style/EditTextTheme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:hint="@string/email_register"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-    <EditText
-        android:id="@+id/editText_username_register"
-        style="@style/EditTextTheme"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/username_register"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_email_register"/>
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar" />
 
-    <EditText
-        android:id="@+id/editText_password_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        style="@style/EditTextTheme"
-        android:hint="@string/password_register"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_username_register"/>
+            <EditText
+                android:id="@+id/editText_email_register"
+                style="@style/EditTextTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:hint="@string/email_register"
+                android:inputType="textEmailAddress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-    <EditText
-        android:id="@+id/editText_password_register_repeat"
-        style="@style/EditTextTheme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/password_register_repeat"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_password_register"/>
 
-    <Spinner
-        android:id="@+id/spinner_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="8dp"
-        android:prompt="@string/gender_register"
-        app:layout_constraintEnd_toStartOf="@+id/spinner_age"
-        app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_password_register_repeat"/>
+            <EditText
+                android:id="@+id/editText_username_register"
+                style="@style/EditTextTheme"
 
-    <Spinner
-        android:id="@+id/spinner_age"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_password_register_repeat"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="@string/username_register"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="@+id/editText_email_register"
+                app:layout_constraintStart_toStartOf="@+id/editText_email_register"
+                app:layout_constraintTop_toBottomOf="@+id/editText_email_register" />
 
-    <Button
-        android:id="@+id/button_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/round_shape_btn"
-        android:text="@string/register_login"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_gender"/>
+            <EditText
+                android:id="@+id/editText_password_register"
+                style="@style/EditTextTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="@string/password_register"
+                android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="@+id/editText_username_register"
+                app:layout_constraintStart_toStartOf="@+id/editText_username_register"
+                app:layout_constraintTop_toBottomOf="@+id/editText_username_register" />
+
+            <EditText
+                android:id="@+id/editText_password_register_repeat"
+                style="@style/EditTextTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:hint="@string/password_register_repeat"
+                android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="@+id/editText_password_register"
+                app:layout_constraintStart_toStartOf="@+id/editText_password_register"
+                app:layout_constraintTop_toBottomOf="@+id/editText_password_register" />
+
+
+            <Spinner
+                android:id="@+id/spinner_age"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/editText_password_register_repeat"
+                app:layout_constraintStart_toStartOf="@+id/editText_password_register_repeat"
+                app:layout_constraintTop_toBottomOf="@+id/editText_password_register_repeat" />
+
+            <Button
+                android:id="@+id/button_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/round_shape_btn"
+                android:text="@string/register_login"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/spinner_age"
+                app:layout_constraintStart_toStartOf="@+id/spinner_age"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_age" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.ServerValue;
@@ -27,7 +28,7 @@ public class AuthProxy extends AFirebase {
         return authProxy;
     }
 
-    public AuthProxy(Context context) {
+    private AuthProxy(Context context) {
         super(context);
         FirebaseApp.initializeApp(context);
         mAuth = FirebaseAuth.getInstance();
@@ -35,7 +36,7 @@ public class AuthProxy extends AFirebase {
         //this.mAndroid_id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
-    public Single<Object> createAccount(String name, String email, String gender, int age, String password) {
+    public Single<Object> createAccount(String name, String email, int age, String password) {
         //mAuth = FirebaseAuth.getInstance();
         return Single.create(e -> mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
@@ -43,7 +44,7 @@ public class AuthProxy extends AFirebase {
                         // Sign in success, update UI with the signed-in user's information
                         FirebaseUser user = mAuth.getCurrentUser();
                         assert user != null;
-                        writeNewUser(user.getUid(), name, email, gender, age, null);
+                        writeNewUser(user.getUid(), name, email, age, null);
 
                         UserProfileChangeRequest profileUpdates
                                 = new UserProfileChangeRequest.Builder()
@@ -51,26 +52,12 @@ public class AuthProxy extends AFirebase {
                         user.updateProfile(profileUpdates);
 
                         e.onSuccess(user);
+                    } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                        e.onSuccess("duplicated");
                     } else {
-                        // If sign in fails, display a message to the user.
-                        //mlog.info("task.getException(): " + task.getException());
-                                               /*
-                                               if(task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                                   checkProviders(email, "facebook.com").subscribe(provider -> {
-                                                       mlog.info("providers: " + provider);
-                                                       if(!provider) {
-                                                           e.onSuccess(email);
-                                                       } else {
-                                                           e.onSuccess("false");
-                                                       }
-                                                   });
-                                               } else {
-                                                   e.onSuccess("false");
-                                               }
-                                               //*/
-                        System.out.println(task.getException());
                         e.onSuccess("false");
                     }
+
                 }));
     }
 
@@ -84,7 +71,11 @@ public class AuthProxy extends AFirebase {
                         e.onSuccess(user);
                     } else {
                         // If sign in fails, display a message to the user.
-                        if (task.getException() instanceof
+                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                            //e.onError(task.getException());
+                            e.onSuccess("false");
+
+                        } else if (task.getException() instanceof
                                 FirebaseAuthInvalidCredentialsException) {
                             checkProviders(email, "facebook.com").subscribe(provider -> {
                                 if (!provider) {
@@ -119,8 +110,8 @@ public class AuthProxy extends AFirebase {
         });
     }
 
-    private void writeNewUser(String userId, String name, String email, String gender, int age, String urlPicture) {
-        UserModel userModel = createUser(name, email, gender, age, userId, urlPicture);
+    private void writeNewUser(String userId, String name, String email, int age, String urlPicture) {
+        UserModel userModel = createUser(name, email, age, userId, urlPicture);
         HashMap<String, Object> userData = new HashMap<>();
         userData.put("general", userModel.getGeneral());
         userData.put("summary", userModel.getSummary());
@@ -148,14 +139,13 @@ public class AuthProxy extends AFirebase {
         });
     }
 
-    private UserModel createUser(String name, String email, String gender, int age, String userId, String urlPicture) {
+    private UserModel createUser(String name, String email, int age, String userId, String urlPicture) {
 
         HashMap<String, Object> summary = new HashMap<>();
         HashMap<String, Object> general = new HashMap<>();
 
         summary.put("email", email);
         summary.put("username", name);
-        summary.put("gender", gender);
         summary.put("age", age);
         summary.put("lastActivity", ServerValue.TIMESTAMP);
         summary.put("langCode", "es-MX");
@@ -173,5 +163,9 @@ public class AuthProxy extends AFirebase {
         userModel.setUserId(userId);
 
         return userModel;
+    }
+
+    public void logout() {
+        mAuth.signOut();
     }
 }

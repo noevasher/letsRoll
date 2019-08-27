@@ -1,46 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageView_noResults"
         style="@style/XLargeIcon"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="100dp"
         android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/textView_noResults"
         app:layout_constraintHorizontal_bias="0.462"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView_noResults"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         app:srcCompat="@drawable/ic_lr_moto"
-        tools:ignore="VectorDrawableCompat"/>
+        tools:ignore="VectorDrawableCompat" />
 
     <TextView
         android:id="@+id/textView_noResults"
         style="@style/TextPreresultsEmpty"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:gravity="center_horizontal"
         android:text="@string/moto_empty_msg"
         app:layout_constraintHorizontal_bias="0.408"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_noResults"/>
+        app:layout_constraintTop_toBottomOf="@+id/imageView_noResults" />
 
     <Button
         android:id="@+id/button_add_moto"
+        style="@style/ButtomAddTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/round_shape_btn"
+        android:drawableStart="@drawable/ic_lr_add_green"
+        android:drawableTint="@color/white"
+        android:paddingStart="4dp"
         android:text="@string/moto_add_btn"
-        style="@style/ButtomAddTheme"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_noResults"
-        app:layout_constraintVertical_bias="0.07"/>
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/textView_noResults"
+        app:layout_constraintStart_toStartOf="@+id/textView_noResults"
+        app:layout_constraintTop_toBottomOf="@+id/textView_noResults" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
