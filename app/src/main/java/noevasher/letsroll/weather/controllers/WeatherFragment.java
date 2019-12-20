@@ -17,13 +17,26 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import noevasher.letsroll.R;
 import noevasher.letsroll.commons.parents.fragments.BaseFragment;
 import noevasher.letsroll.services.WeatherFunction;
+import noevasher.letsroll.weather.RemoteFetch;
+import noevasher.letsroll.weather.YahooWeatherService;
+import noevasher.letsroll.weather.activities.Channel;
+import noevasher.letsroll.weather.activities.LocationResult;
+import noevasher.letsroll.weather.listener.GeocodingServiceListener;
+import noevasher.letsroll.weather.listener.WeatherServiceListener;
 
-public class WeatherFragment extends BaseFragment implements LocationListener {
+public class WeatherFragment extends BaseFragment implements WeatherServiceListener, GeocodingServiceListener, LocationListener {
 
     private static final int REQUEST_CODE_LOCATION = 100;
 
@@ -55,6 +68,11 @@ public class WeatherFragment extends BaseFragment implements LocationListener {
                 false); //setContentView(R.layout.fragment_login);
 
         ButterKnife.bind(this, view);
+
+        YahooWeatherService weatherService = new YahooWeatherService(this);
+        weatherService.setTemperatureUnit(getString(R.string.pref_temperature_unit));
+        weatherService.refreshWeather("oaxaca");
+
         /*
         getAvailableActivity(new IActivityEnabledListener() {
             @Override
@@ -185,6 +203,26 @@ public class WeatherFragment extends BaseFragment implements LocationListener {
 
     @Override
     public void onProviderDisabled(String provider) {
+
+    }
+
+    @Override
+    public void geocodeSuccess(LocationResult location) {
+
+    }
+
+    @Override
+    public void geocodeFailure(Exception exception) {
+
+    }
+
+    @Override
+    public void serviceSuccess(Channel channel) {
+
+    }
+
+    @Override
+    public void serviceFailure(Exception exception) {
 
     }
 }

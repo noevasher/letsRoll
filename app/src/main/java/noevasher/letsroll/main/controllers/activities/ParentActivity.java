@@ -1,5 +1,6 @@
 package noevasher.letsroll.main.controllers.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -20,18 +21,22 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import noevasher.letsroll.R;
+import noevasher.letsroll.login.controllers.activities.LoginActivity;
 import noevasher.letsroll.proxies.AuthProxy;
+import noevasher.letsroll.session.SessionManager;
 
 public class ParentActivity extends AppCompatActivity {
     private static final int WORD_LENGTH = 6;
     protected AuthProxy mAuthProxy;
     protected Toolbar toolbar;
+    public SessionManager sessionManager;
     private static String fieldRequired;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuthProxy = AuthProxy.getInstance(getApplicationContext());
+        sessionManager = SessionManager.getInstance(getApplicationContext());
 
         fieldRequired = getString(R.string.field_required);
     }
@@ -161,18 +166,25 @@ public class ParentActivity extends AppCompatActivity {
 
     }
 
-    public static boolean isEmptyField(EditText editText) {
+    protected boolean isEmptyField(EditText editText) {
         return editText.getText().toString().isEmpty();
         //return editText.getText().toString().isEmpty();
     }
 
-    public static boolean comparePassword(EditText password, EditText passwordConfirm) {
+    protected boolean comparePassword(EditText password, EditText passwordConfirm) {
         if (!password.getText().toString().equals(passwordConfirm.getText().toString())) {
-            passwordConfirm.setError("La contraseña debe de coincidir");
+            passwordConfirm.setError(getString(R.string.match_password));
             return false;
         } else {
             return true;
         }
     }
+
+    public void logout(){
+        mAuthProxy.logout();
+        sessionManager.logoutUser();
+        finish();
+    }
+
 
 }

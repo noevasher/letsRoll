@@ -11,10 +11,16 @@
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:clickable="true"
+        android:fillViewport="true"
+        android:focusable="true"
+        android:background="@color/colorGrayLow"
         android:focusableInTouchMode="true"
-        android:fillViewport="true">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:clickable="true"
@@ -25,100 +31,90 @@
                 layout="@layout/toolbar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
                 android:id="@+id/spinner_brand"
                 style="@style/FormTheme"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:textAlignment="center"
                 android:textDirection="firstStrongLtr"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText_alias"/>
+                app:layout_constraintEnd_toEndOf="@+id/editText_alias"
+                app:layout_constraintStart_toStartOf="@+id/editText_alias"
+                app:layout_constraintTop_toBottomOf="@+id/editText_alias" />
 
             <Spinner
                 android:id="@+id/spinner_model"
                 style="@style/FormTheme"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_brand"/>
+                app:layout_constraintEnd_toEndOf="@+id/spinner_brand"
+                app:layout_constraintStart_toStartOf="@+id/spinner_brand"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_brand" />
 
             <EditText
                 android:id="@+id/editText_alias"
-                style="@style/FormTheme"
+                style="@style/FormRegisterTheme"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="108dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginEnd="32dp"
                 android:ems="10"
                 android:hint="@string/moto_register_alias_title"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
             <EditText
                 android:id="@+id/editText_year"
-                style="@style/FormTheme"
+                style="@style/FormRegisterTheme"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:hint="@string/moto_register_year_title"
                 android:inputType="number"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_model"/>
-
+                app:layout_constraintEnd_toEndOf="@+id/spinner_model"
+                app:layout_constraintStart_toStartOf="@+id/spinner_model"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_model" />
 
 
             <EditText
                 android:id="@+id/editText_mileage"
+                style="@style/FormRegisterTheme"
                 android:layout_width="0dp"
-                style="@style/FormTheme"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:hint="@string/moto_register_kilometraje_title"
                 android:inputType="number"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText_year"/>
+                app:layout_constraintEnd_toEndOf="@+id/editText_year"
+                app:layout_constraintStart_toStartOf="@+id/editText_year"
+                app:layout_constraintTop_toBottomOf="@+id/editText_year" />
 
             <Button
                 android:id="@+id/button_register_moto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/round_shape_white_btn"
-                android:backgroundTint="@color/white"
-                android:drawableLeft="@drawable/ic_lr_moto_green"
+                android:backgroundTint="@color/colorPrimary"
+                android:drawableStart="@drawable/ic_lr_moto"
+                android:drawableTint="@color/white"
                 android:text="@string/moto_add_btn"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText_mileage"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/editText_mileage" />
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,276 +1,97 @@
 package noevasher.letsroll.main.controllers.activities;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import com.google.android.material.tabs.TabLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import noevasher.letsroll.R;
-import noevasher.letsroll.commons.parents.fragments.BaseFragment;
-import noevasher.letsroll.main.controllers.activities.adapters.MainFragmentPagerAdapter;
+import noevasher.letsroll.friends.controllers.fragments.FriendsFragment;
+import noevasher.letsroll.main.controllers.activities.adapters.TabAdapter;
 import noevasher.letsroll.moto.controllers.fragments.MotoFragment;
+import noevasher.letsroll.profile.controllers.fragments.ProfileFragment;
+import noevasher.letsroll.rute.controllers.fragments.RouteFragment;
 import noevasher.letsroll.weather.controllers.WeatherFragment;
 
-public class MainActivity extends AppCompatActivity implements LocationListener {
+public class MainActivity extends ParentActivity {
+    private TabAdapter adapter;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private NavigationView navigationView;
 
-    private static final String TAG = "MainActivity";
-
-    private static final int FRAGMENT_MOTO_RESULT = 0;
-    private static final int FRAGMENT_WEATHER = 1;
-    private static final int FRAGMENT_CHATLIST = 2;
-    private static final int FRAGMENT_GENERAL = 3;
-
-    private Snackbar mConnectionSnackBar;
-
-    private MainViewPager mViewPager;
-    private MainFragmentPagerAdapter mainFragmentPagerAdapter;
-    private String currentSearchFragment;
+    private int[] tabIcons = {
+            R.drawable.ic_lr_moto,
+            R.drawable.ic_lr_wheater,
+            R.drawable.ic_lr_rutes,
+            R.drawable.ic_lr_friends,
+            R.drawable.ic_lr_profile_moto
+    };
 
     @BindView(R.id.toolbar)
     public Toolbar toolbar;
-    /*
-    @Override
-    public void onStart() {
-        super.onStart();
-        //SE GUARDA EL ID DEL PROCESO
-        PreferenceManager.getDefaultSharedPreferences(this).edit()
-                         .putInt("processId", android.os.Process.myPid()).apply();
-        
-        if(getIntent().getExtras() != null && getIntent().getExtras().get("fromChatActivity") != null){
-            BottomNavigationViewEx bottomNavigationView = findViewById(R.id.navigation);
-            bottomNavigationView.setCurrentItem(FRAGMENT_CHATLIST);
-            //mViewPager.setCurrentItem(FRAGMENT_CHATLIST);
-            getIntent().putExtra("fromChatActivity", (Bundle) null);
-        }else if(getIntent().getExtras().getString("fragment") != null){
-            BottomNavigationViewEx bottomNavigationView = findViewById(R.id.navigation);
-            bottomNavigationView.setCurrentItem(FRAGMENT_CHATLIST);
-            
-            PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean(Consts
-            .INTENT_PARAMETER_NOTIFICATION_CHATLIST, true)
-                             .apply();
-        }else{
-            PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean(Consts
-            .INTENT_PARAMETER_NOTIFICATION_CHATLIST, false)
-                             .apply();
-        }
-        
-        if(getIntent().getExtras().get(Consts.INTENT_PARAMETER_ENTITY_INFO) != null){
-            Intent intent = new Intent(this.getApplicationContext(), ChatActivity.class);
-            intent.putExtra(Consts.INTENT_PARAMETER_ENTITY_INFO,
-                            getIntent().getSerializableExtra(Consts.INTENT_PARAMETER_ENTITY_INFO));
-            intent.putExtra(Consts.INTENT_PARAMETER_NOTIFICATION_CHAT, true);
-            this.startActivity(intent);
-            
-        }
-        
-        PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("chatIsActive", false)
-                         .putString("entityId", "")
-                         .putString("conversationId", "")
-                         .apply();
-    }
-    
-    //*/
-    LocationManager locationManager;
-    String provider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        // Set up the login form.
+        setContentView(R.layout.activity_main_);
         ButterKnife.bind(this);
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        provider = locationManager.getBestProvider(new Criteria(), false);
 
-        if (!isTaskRoot()
-                && getIntent().hasCategory(Intent.CATEGORY_LAUNCHER)
-                && getIntent().getAction() != null
-                && getIntent().getAction().equals(Intent.ACTION_MAIN)) {
+        viewPager = findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tabLayout);
 
-            finish();
-            return;
-        }
-        this.setupFragmentsNavigation();
-        configToolBar();
+        initTabLayout();
+
+        configToolBar(toolbar, null);
         configDrawer();
-
-        this.mViewPager = findViewById(R.id.main_container);
-        this.setupViewPager(this.mViewPager);
-        this.mViewPager.setOffscreenPageLimit(3);
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        mainFragmentPagerAdapter = new MainFragmentPagerAdapter(getSupportFragmentManager());
-        BaseFragment motoFragment = new MotoFragment();
-        mainFragmentPagerAdapter.addFragment(motoFragment, "MiMoto");
-        mainFragmentPagerAdapter.addFragment(new WeatherFragment(), "Wheather");
-        /*
-        mainFragmentPagerAdapter.addFragment(new FavoritesFragment(), "Favorites");
-        mainFragmentPagerAdapter.addFragment(new ChatsFragment(), "Chats");
-        mainFragmentPagerAdapter.addFragment(new GeneralsFragment(), "Generals");
-        //*/
-        viewPager.setAdapter(mainFragmentPagerAdapter);
-    }
 
-    /*
-    public void replaceLoginFragment(ResultsFragment fragment){
-        this.currentSearchFragment = Consts.RESULTS_FRAGMENT;
-        mainFragmentPagerAdapter.replaceFragment(fragment, "Results", FRAGMENT_LOGIN_RESULT);
-    }
-    //*/
-    private void setupFragmentsNavigation() {
-        BottomNavigationViewEx bottomNavigationView = findViewById(R.id.navigation);
-        bottomNavigationView.enableAnimation(false);
-        bottomNavigationView.setTextVisibility(false);
-        bottomNavigationView.enableShiftingMode(false);
+    private void initTabLayout() {
+        adapter = new TabAdapter(getSupportFragmentManager());
+        setFragments();
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
+        setupFragmentsNavigation();
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.navigation_moto:
-                    if (mViewPager.getCurrentItem() == FRAGMENT_MOTO_RESULT) {
-                        getSupportFragmentManager().popBackStackImmediate();
+        highLightCurrentTab(tabLayout.getTabAt(0));
+        tabLayout.addOnTabSelectedListener(
+                new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
+
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        super.onTabSelected(tab);
+                        highLightCurrentTab(tab);
                     }
-                    mViewPager.setCurrentItem(FRAGMENT_MOTO_RESULT);
-                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
-                            .edit()
-                            .putBoolean("fragmentIsActive", false)
-                            .apply();
-                    break;
-                case R.id.navigation_weather:
-                    if (checkLocationPermission()) {
-                        mViewPager.setCurrentItem(FRAGMENT_WEATHER);
-                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
-                                .edit()
-                                .putBoolean("fragmentIsActive", false);
-                        System.out.println("click in weather");
+
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
+                        super.onTabUnselected(tab);
+                        int tabIconColor = ContextCompat.getColor(getApplicationContext(), R.color.white);
+                        tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+
                     }
-                    break;
-            }
-            return true;
-        });
-    }
 
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-
-    public boolean checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-                new AlertDialog.Builder(this)
-                        .setTitle("Ttle")
-                        .setMessage("Messages!!!")
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions(MainActivity.this,
-                                        new String[]{
-                                                Manifest.permission.ACCESS_FINE_LOCATION},
-                                        MY_PERMISSIONS_REQUEST_LOCATION);
-                            }
-                        })
-                        .create()
-                        .show();
-            } else {
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-            }
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission was granted, yay! Do the
-                    // location-related task you need to do.
-                    if (ContextCompat.checkSelfPermission(this,
-                            Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED) {
-
-                        //Request location updates:
-                        String provider = locationManager.getBestProvider(new Criteria(), false);
-                        locationManager.requestLocationUpdates(provider, 400, 1, this);
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+                        super.onTabReselected(tab);
                     }
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-
                 }
-                return;
-            }
-        }
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
-    }
-
-    private void configToolBar() {
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            toolbar.setTitle(R.string.moto_menu_title);
-        }
+        );
     }
 
     private void configDrawer() {
@@ -289,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         };
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
-        NavigationView navigationView = findViewById(R.id.navigationView_main);
+        navigationView = findViewById(R.id.navigationView_main);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -302,13 +123,66 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     case R.id.settings:
                         Log.d("menu nav", "settings");
                         return true;
-                    case R.id.account:
+                    case R.id.profile:
                         Log.d("menu nav", "account");
+                        TabLayout.Tab tab = tabLayout.getTabAt(4);
+                        tab.select();
+                        return true;
+                    case R.id.logout:
+                        Log.d("menu nav", "logout");
+                        logout();
                         return true;
                     default:
                         return false;
                 }
             }
         });
+
+        View header = navigationView.getHeaderView(0);
+        textName = header.findViewById(R.id.textView_username);
+        textName.setTextColor(getColor(R.color.white));
+        imageProfile = header.findViewById(R.id.imageView_profile);
     }
+
+
+    private void setupFragmentsNavigation() {
+        for (int position = 0; position < tabIcons.length; position++) {
+            tabLayout.getTabAt(position).setIcon(tabIcons[position]);
+            tabLayout.getTabAt(position).getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+        }
+    }
+
+    private void setFragments() {
+        adapter.addFragment(new MotoFragment(), getString(R.string.moto_menu_title));
+        adapter.addFragment(new WeatherFragment(), getString(R.string.weather_menu_title));
+        adapter.addFragment(new RouteFragment(), getString(R.string.rutes_menu_title));
+        adapter.addFragment(new FriendsFragment(), getString(R.string.friends_menu_title));
+        //adapter.addFragment(new FriendsFragment(), getString(R.string.friends_menu_title));
+        adapter.addFragment(new ProfileFragment(), getString(R.string.profile_menu_title));
+    }
+
+
+    private void highLightCurrentTab(TabLayout.Tab tab) {
+        int tabIconColor = ContextCompat.getColor(getApplicationContext(), R.color.colorSelectedItem);
+        tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+    }
+    //*/
+
+    private static final int PERMISSIONS_REQUEST_CAMERA = 555;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == PERMISSIONS_REQUEST_CAMERA && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            //setupContactsPicker();
+            System.out.println("PERMISOS onRequest");
+            ProfileFragment.profileFragment.takePhotoFromCamera();
+        } else {
+            System.out.println("PERMISOS onRequest else");
+
+            // We were not granted permission this time, so don't try to show the contact picker
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+
 }

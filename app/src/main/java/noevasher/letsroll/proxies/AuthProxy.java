@@ -8,12 +8,14 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.ServerValue;
 
 import java.util.HashMap;
 
 import io.reactivex.Single;
 import noevasher.letsroll.models.UserModel;
+import noevasher.letsroll.services.Utilities;
 
 public class AuthProxy extends AFirebase {
 
@@ -124,6 +126,29 @@ public class AuthProxy extends AFirebase {
         //userDatabaseReference.child("users/" + userId).setValue(userModel.getModelMap());
         //mDataBase.keepSynced(DBPaths.USERS, userModel.userId);
     }
+
+    public void writeUserInfo(String userId, HashMap<String, Object> userData) {
+        mDatabaseProxy.updateChildrenSingle("users/" + userId, userData).subscribe(response -> {
+            Utilities.showMessage(mContext, "write...", false);
+        }, t -> {
+            Utilities.showMessage(mContext, t.getMessage(), true);
+
+        });
+
+    }
+
+
+    public void writeInformation(String path, HashMap<String, Object> information) {
+        mDatabaseProxy.updateChildrenSingle(path, information).subscribe(response -> {
+            Utilities.showMessage(mContext, "save", false);
+        }, t -> {
+            Utilities.showMessage(mContext, t.getMessage(), true);
+
+        });
+
+    }
+
+
 
     public Single<Object> getFirebaseUser() {
         return Single.create(e -> {

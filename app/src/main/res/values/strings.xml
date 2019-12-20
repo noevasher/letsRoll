@@ -93,5 +93,15 @@
     <string name="field_required">Campo Requerido</string>
     <string name="register_error">Error al registrar usuario</string>
     <string name="duplicated_user_error">El Correo ya ha sido registrado</string>
+    <string name="open_weather_maps_app_id">1c7c745830dc1a1835e7cc90a1436112</string>
+    <string name="title_profile">Mi Perfíl</string>
+    <string name="tittle_privacy">Privacidad</string>
+    <string name="tittle_settings">Configuración</string>
+    <string name="title_contact">Contacto</string>
+    <string name="report_label">Reportar Problema</string>
+    <string name="change_password_label">Cambiar Contraseña</string>
+    <string name="match_password">La contraseña debe de coincidir</string>
+    <string name="error_registered_user">user registrado</string>
+    <string name="username_label">Usuario</string>
 
 </resources>

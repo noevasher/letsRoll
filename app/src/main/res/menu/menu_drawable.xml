@@ -2,32 +2,48 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
+    <group
+        android:id="@+id/user_options"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/profile"
+            android:icon="@drawable/ic_lr_profile_moto"
+            android:title="@string/title_profile" />
 
-    <group android:id="@+id/activities" android:checkableBehavior="single">
-        <item android:id="@+id/terms"
-            android:title="@string/tittle_terms"
-            android:icon="@drawable/ic_terms_24px">
-        </item>
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/ic_lr_settings_"
+            android:title="@string/tittle_settings" />
 
-
-        <item android:id="@+id/settings"
-            android:title="@string/tittle_terms"
-            android:icon="@drawable/ic_lr_settings_">
-        </item>
-
-
-        <item android:id="@+id/account"
-            android:title="@string/tittle_terms"
-            android:icon="@drawable/ic_lr_profile_moto">
-        </item>
     </group>
 
+    <group
+        android:id="@+id/activities"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/terms"
+            android:icon="@drawable/ic_terms_24px"
+            android:title="@string/tittle_terms" />
 
-    <group android:id="@+id/userItems" android:checkableBehavior="single">
-        <item android:id="@+id/logout"
-            android:title="@string/logout"
-            android:icon="@drawable/ic_close_app_24px">
-        </item>
+        <item
+            android:id="@+id/privacy"
+            android:icon="@drawable/ic_privacy"
+            android:title="@string/tittle_privacy" />
+
+
+    </group>
+
+    <group
+        android:id="@+id/userItems"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/contact"
+            android:icon="@drawable/ic_contacts_24px"
+            android:title="@string/title_contact" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/ic_close_app_24px"
+            android:title="@string/logout" />
 
     </group>
 </menu>

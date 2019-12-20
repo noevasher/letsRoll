@@ -8,9 +8,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
@@ -18,9 +15,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import noevasher.letsroll.R;
 import noevasher.letsroll.login.businesslogic.LoginBL;
-import noevasher.letsroll.main.controllers.activities.MainActivity_;
+import noevasher.letsroll.main.controllers.activities.MainActivity;
 import noevasher.letsroll.main.controllers.activities.ParentActivity;
-import noevasher.letsroll.proxies.AuthProxy;
 import noevasher.letsroll.register.controllers.activities.RegisterActivity;
 
 /**
@@ -63,7 +59,7 @@ public class LoginActivity extends ParentActivity {
         ButterKnife.bind(this);
         //FirebaseApp.initializeApp(this);
         //Intent mainIntent = new Intent(this, MainActivity.class);
-        Intent mainIntent = new Intent(this, MainActivity_.class);
+        Intent mainIntent = new Intent(this, MainActivity.class);
         loginBL = new LoginBL(getApplicationContext());
 
         emailE.setOnFocusChangeListener((view, hasFocus) -> {
@@ -97,7 +93,7 @@ public class LoginActivity extends ParentActivity {
                 startActivity(mainIntent);
                 finish();
             } else {
-                Toast.makeText(this, "user registrado", Toast.LENGTH_LONG);
+                Toast.makeText(this, getString(R.string.error_registered_user), Toast.LENGTH_LONG);
             }
 
         });
@@ -111,6 +107,7 @@ public class LoginActivity extends ParentActivity {
                     if (response instanceof FirebaseUser) {
                         progressBar.setVisibility(View.GONE);
                         startActivity(mainIntent);
+                        sessionManager.createLoginSession(email, ((FirebaseUser) response).getUid());
                         finish();
 
                     } else if (response.equals("false")) {

@@ -5,16 +5,22 @@
     <color name="colorPrimaryDark">#5d862c</color>
     <color name="colorAccent">#f68d03</color>
 -->
-
+<!--
     <color name="colorPrimary">#7CB342</color>
     <color name="colorPrimaryDark">#9CCC65</color>
     <color name="colorAccent">#43A047</color>
+-->
+    <color name="colorPrimary">#689F38</color>
+    <color name="colorPrimaryDark">#9CCC65</color>
+    <color name="colorAccent">#E89C19</color>
+
+    <color name="colorDarkTheme">#33691E</color>
 
     <color name="colorDarkPrimary">#000000</color>
     <color name="colorDarkPrimaryDark">#000000</color>
     <color name="colorDarkAccent">#BF360C</color>
 
-    <color name="colorSelectedItem">#FFEB3B</color>
+    <color name="colorSelectedItem">#E89C19</color>
     <color name="colorSelectedEditText">#FF3D00</color>
 
     <color name="red">#FF0000</color>
@@ -30,5 +36,9 @@
     <color name="colorBackground">#000000</color>
 
 
+
+    <color name="colorGrayLow">#EEE</color>
+    <color name="colorGrayHigh">#999</color>
+    <color name="colorGray">#CCC</color>
 
 </resources>

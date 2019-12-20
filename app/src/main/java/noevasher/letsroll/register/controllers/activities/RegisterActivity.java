@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import noevasher.letsroll.R;
-import noevasher.letsroll.main.controllers.activities.MainActivity_;
+import noevasher.letsroll.main.controllers.activities.MainActivity;
 import noevasher.letsroll.main.controllers.activities.ParentActivity;
 import noevasher.letsroll.register.businessLogic.RegisterBL;
 
@@ -79,7 +79,7 @@ public class RegisterActivity extends ParentActivity {
                     if (response instanceof FirebaseUser) {
                         registerBL.startSessionUser(emailE, passwordE).subscribe(init -> {
                             progressBar.setVisibility(View.GONE);
-                            Intent returnIntent = new Intent(getApplication(), MainActivity_.class);
+                            Intent returnIntent = new Intent(getApplication(), MainActivity.class);
                             startActivity(returnIntent);
                             finish();
                         });

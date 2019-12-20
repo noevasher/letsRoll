@@ -20,6 +20,15 @@
         <item name="colorControlHighlight">@color/white</item>
     </style>
 
+    <style name="FormRegisterTheme">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="colorControlNormal">@color/black</item>
+        <item name="colorControlActivated">@color/colorSelectedItem</item>
+        <item name="colorControlHighlight">@color/white</item>
+    </style>
+
     <style name="XLargeIcon">
         <item name="android:layout_width">@dimen/xxlarge_icon_size</item>
         <item name="android:layout_height">@dimen/xxlarge_icon_size</item>
